@@ -34,7 +34,9 @@
 데일리 기록지:
 
 - 2024.03.28 (목) : 
+
   (1) 구현목록 : 회원가입(createdUserWithEmailAndPassword) , 로그인(SignInEmailAndPassword), 네비게이션 바 구현(bootstrap 사용 안함 이유는 나중에 스타일할때 힘들어서)
+
   (2) 어려웠던 점 : 혼자서 진행하다 보니 시간이 다소 걸릴 것 같다. @reactjs-toolkit에 대한 공부를 하고 자야겠다. 블로그에 기록 예정
 
 
