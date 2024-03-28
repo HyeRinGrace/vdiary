@@ -52,3 +52,10 @@ input{
     font-size: 15px;
     color: red;
   }
+
+  .errorText{
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    color: red;
+  }

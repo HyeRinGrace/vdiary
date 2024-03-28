@@ -39,3 +39,15 @@ input{
     padding: 8px; /* 내부 여백 조정 */
     
   }
+
+  .warningText{
+    display: flex;
+    justify-content: center;
+  }
+
+  .YesIdText{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    color: gray;
+  }

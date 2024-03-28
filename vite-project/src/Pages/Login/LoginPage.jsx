@@ -1,15 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Row} from 'react-bootstrap'
 import '../Login/LoginPage.css'
 import {useForm} from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import app from '../../firebase';
+import Navbar from '../../AppLayout/Navbar';
 
-const LoginPage = () => {
-
+const LoginPage = ({setLoginTrue}) => {
+    let Auth = getAuth(app);
+    const [loading, setLoading] = useState(false);
+    const [errorMessages, setErrorMessages] = useState('');
     const {register, formState:{errors}, handleSubmit } = useForm();
+    const navigate = useNavigate();
+
+    const LoginCheck = async(data) =>{
+        try {
+            setLoading(true);
+            await signInWithEmailAndPassword(Auth,data.email,data.password);
+            setLoginTrue(true);
+            alert('로그인 되었습니다.');
+            navigate('/');
+
+        } catch (error) {
+            console.error(error);
+            setErrorMessages(error.message);
+            setTimeout(()=>{
+                setErrorMessages('')
+            },3000);
+            
+        }finally{
+            setLoading(false);
+        }
+
+    }
 
   return (
-        <form className='LoginForm'>
+        <form className='LoginForm' onSubmit={handleSubmit(LoginCheck)}>
             <Row className='LoginContainer'>
                 <h1>로그인</h1>
                 <div className='inputContainer'>
@@ -27,11 +54,13 @@ const LoginPage = () => {
                     {errors.password && <p className='warningText'>비밀번호를 잘못입력하셨습니다.</p>}
                     {errors.minLength < 6 && <p className='warningText'>비밀번호는 최소 6자리 이상 입력해주세요.</p>}
                 </div>
+                {errorMessages&& <p className='errorText'>{errorMessages}</p>}
                 <div className='LoginBtnContainer'>
-                    <button className='LoginBtn'>로그인</button>
+                    <button className='LoginBtn'>{loading ? 'Loading':'로그인'}</button>
                 </div>
                 <Link to={'/Register'} className='NoIdText'>회원가입 하러가기</Link>
             </Row>
+            {loading && <Navbar loading = {loading}/>}
         </form>
   )
 }

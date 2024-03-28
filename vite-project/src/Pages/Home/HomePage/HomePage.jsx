@@ -4,7 +4,7 @@ import Navbar from '../../../AppLayout/Navbar'
 const HomePage = () => {
   return (
     <div>
-        <Navbar/>
+        homePage
     </div>
   )
 }
